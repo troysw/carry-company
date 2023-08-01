@@ -1,4 +1,4 @@
-package com.comall.common.exception;
+package com.comall.comall.common.exception;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
