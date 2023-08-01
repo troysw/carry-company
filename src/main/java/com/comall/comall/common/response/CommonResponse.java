@@ -1,6 +1,6 @@
-package com.comall.common.response;
+package com.comall.comall.common.response;
 
-import com.comall.common.exception.ErrorCode;
+import com.comall.comall.common.exception.ErrorCode;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
