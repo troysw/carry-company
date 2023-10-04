@@ -10,4 +10,6 @@ public class ComallApplication {
     SpringApplication.run(ComallApplication.class, args);
   }
 
+
+
 }

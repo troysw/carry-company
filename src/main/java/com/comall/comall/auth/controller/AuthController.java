@@ -1,9 +1,9 @@
-package com.comall.comall.auth.adapter.in.api;
+package com.comall.comall.auth.controller;
 
 import com.comall.comall.common.jwt.dto.TokenDto;
 import com.comall.comall.common.jwt.JwtFilter;
 import com.comall.comall.common.jwt.TokenProvider;
-import com.comall.comall.auth.application.service.dto.LoginRequest;
+import com.comall.comall.auth.controller.dto.LoginRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
