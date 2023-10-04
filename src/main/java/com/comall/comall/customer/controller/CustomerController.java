@@ -1,7 +1,7 @@
-package com.comall.comall.customer.adapter.in.api;
+package com.comall.comall.customer.controller;
 
-import com.comall.comall.customer.application.service.CustomerService;
-import com.comall.comall.customer.application.service.dto.CustomerRequest;
+import com.comall.comall.customer.service.CustomerService;
+import com.comall.comall.customer.controller.dto.CustomerRequest;
 import com.comall.comall.customer.domain.Customer;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

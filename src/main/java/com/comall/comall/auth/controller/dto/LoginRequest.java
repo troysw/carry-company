@@ -1,6 +1,5 @@
-package com.comall.comall.customer.application.service.dto;
+package com.comall.comall.auth.controller.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
@@ -10,12 +9,12 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CustomerRequest {
+public class LoginRequest {
+
   @NotNull
   @Size(min = 3, max = 50)
   private String username;
 
-  @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
   @NotNull
   @Size(min = 3, max = 100)
   private String password;

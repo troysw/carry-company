@@ -1,6 +1,6 @@
-package com.comall.comall.customer.application.service;
+package com.comall.comall.customer.service;
 
-import com.comall.comall.customer.adapter.out.persistent.CustomerRepository;
+import com.comall.comall.customer.repository.CustomerRepository;
 import com.comall.comall.customer.domain.Customer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;

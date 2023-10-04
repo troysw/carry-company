@@ -1,4 +1,4 @@
-package com.comall.comall.customer.adapter.out.persistent;
+package com.comall.comall.customer.repository;
 
 import com.comall.comall.customer.domain.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
