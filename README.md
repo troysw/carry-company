@@ -18,9 +18,6 @@ JPA, Lombok, jwt
 
 ### 패키지 구조
 
-상세 설명 링크
-https://velog.io/@ksw_dev/%ED%8F%AC%ED%8A%B8%ED%8F%B4%EB%A6%AC%EC%98%A4-%EB%A0%88%EC%9D%B4%EC%96%B4%EB%93%9C-%EC%95%84%ED%82%A4%ED%85%8D%EC%B3%90
-
 도메인 
  - controller
  - facade
@@ -28,6 +25,10 @@ https://velog.io/@ksw_dev/%ED%8F%AC%ED%8A%B8%ED%8F%B4%EB%A6%AC%EC%98%A4-%EB%A0%8
  - domain
  - repository
 
+기존 레이어드 구조에 파사드 패턴을 추가.
+
+상세 설명 링크
+https://velog.io/@ksw_dev/%ED%8F%AC%ED%8A%B8%ED%8F%B4%EB%A6%AC%EC%98%A4-%EB%A0%88%EC%9D%B4%EC%96%B4%EB%93%9C-%EC%95%84%ED%82%A4%ED%85%8D%EC%B3%90
 
 
 ### 추후 구현 목록
