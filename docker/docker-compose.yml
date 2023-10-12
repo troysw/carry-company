@@ -1,13 +1,13 @@
 version: "3.7"
 services:
-  comall-db:
+  final-third-db:
     image: postgres:14.6
     ports:
       - "54321:5432"
     environment:
-      - POSTGRES_DB=comall
-      - POSTGRES_USER=comall
-      - POSTGRES_PASSWORD=comall
+      - POSTGRES_DB=final-third
+      - POSTGRES_USER=final-third
+      - POSTGRES_PASSWORD=final-third
       - TZ=UTC
     volumes:
       - ./postgres:/var/lib/postgresql/data
