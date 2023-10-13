@@ -1,5 +1,6 @@
 package com.finalThird.finalThird.premierLeague.domain;
 
+import com.finalThird.finalThird.common.entity.BaseEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
@@ -14,7 +15,7 @@ import java.util.List;
 @Setter(AccessLevel.PROTECTED)
 @Getter
 @NoArgsConstructor
-public class PremierLeagueTeam {
+public class PremierLeagueTeam extends BaseEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

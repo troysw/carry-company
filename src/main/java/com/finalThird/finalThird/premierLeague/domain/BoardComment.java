@@ -1,5 +1,6 @@
 package com.finalThird.finalThird.premierLeague.domain;
 
+import com.finalThird.finalThird.common.entity.BaseEntity;
 import com.finalThird.finalThird.customer.domain.Customer;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -9,7 +10,7 @@ import lombok.Setter;
 @Entity
 @Setter(AccessLevel.PROTECTED)
 @Getter
-public class BoardComment {
+public class BoardComment extends BaseEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.SEQUENCE)

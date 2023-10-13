@@ -1,5 +1,6 @@
 package com.finalThird.finalThird.premierLeague.domain;
 
+import com.finalThird.finalThird.common.entity.BaseEntity;
 import com.finalThird.finalThird.customer.domain.Customer;
 import com.finalThird.finalThird.premierLeague.controller.dto.EplRequest;
 import com.finalThird.finalThird.premierLeague.controller.dto.EplResponse;
@@ -18,7 +19,7 @@ import java.util.List;
 @Setter(AccessLevel.PROTECTED)
 @Getter
 @NoArgsConstructor
-public class PremierLeagueBoard {
+public class PremierLeagueBoard extends BaseEntity {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
