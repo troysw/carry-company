@@ -8,6 +8,7 @@ public class EplRequest {
 
   @Data
   public static class BoardRequest {
+    public String teamName;
     public String customerEmail;
     public String title;
     public String content;

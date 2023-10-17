@@ -10,7 +10,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -46,12 +45,13 @@ public class PremierLeagueBoard extends BaseEntity {
   @OneToMany(mappedBy = "board")
   private List<BoardComment> commentList = new ArrayList<>();
 
-  public static PremierLeagueBoard create(EplRequest.BoardRequest request, Customer createUser) {
+  public static PremierLeagueBoard create(EplRequest.BoardRequest request, PremierLeagueTeam team, Customer createUser) {
     PremierLeagueBoard res = new PremierLeagueBoard();
     res.setCreateUser(createUser);
     res.setTitle(request.getTitle());
     res.setContent(request.getContent());
     res.setCreatedDate(LocalDateTime.now());
+    res.setTeam(team);
     return res;
   }
 

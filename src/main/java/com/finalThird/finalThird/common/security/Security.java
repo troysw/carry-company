@@ -31,8 +31,8 @@ public class Security {
 
 
   public Customer getMe() {
-    User adminOptional = getAdminOptional()
-        .orElseThrow(() -> new ApiException(ErrorCode.NOT_LOGIN));
+    User adminOptional = getAdminOptional().orElseThrow(() -> new ApiException(ErrorCode.NOT_LOGIN));
+
     return customerRepository.findByCustomerEmail(adminOptional.getUsername())
         .orElseThrow(() -> new ApiException(ErrorCode.USER_NOT_FOUND));
   }

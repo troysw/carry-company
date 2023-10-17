@@ -15,9 +15,10 @@ public class PremierLeagueController {
 
   private final PremierLeagueFacade premierLeagueFacade;
 
-  @PostMapping
-  public CommonResponse readEplBoardList(@Valid @RequestBody EplRequest.BoardRequest request) {
-    premierLeagueFacade.postEplBoard(request);
+  @PostMapping({"teamName"})
+  public CommonResponse readEplBoardList(@PathVariable("teamName")String teamName,
+                                         @Valid @RequestBody EplRequest.BoardRequest request) {
+    premierLeagueFacade.postEplBoard(teamName, request);
     return CommonResponse.success(null, "성공적으로 저장 되었습니다.");
   }
 

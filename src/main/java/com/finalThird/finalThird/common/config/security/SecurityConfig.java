@@ -27,11 +27,6 @@ public class SecurityConfig {
 
 
   // BCryptPasswordEncoder
-  @Bean
-  public PasswordEncoder passwordEncoder() {
-    return new BCryptPasswordEncoder();
-  }
-
 
   @Bean
   public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -62,10 +57,8 @@ public class SecurityConfig {
     http.authorizeHttpRequests(
         (auth) -> {
           auth.requestMatchers("/api/**").permitAll();
-          auth.requestMatchers("/api/authenticate").permitAll(); // 로그인 api
-          auth.requestMatchers("/api/signup").permitAll(); // 회원가입 api
-          auth.requestMatchers("/api/login").permitAll(); // 회원가입 api
           auth.requestMatchers("/favicon.ico").permitAll();
+          auth.requestMatchers("/error").permitAll();
           auth.anyRequest().authenticated();// 그 외 인증 없이 접근X
         }
     );
@@ -73,4 +66,6 @@ public class SecurityConfig {
     http.addFilterBefore(new JwtFilter(tokenProvider), UsernamePasswordAuthenticationFilter.class);
     return http.build();
   }
+
+
 }

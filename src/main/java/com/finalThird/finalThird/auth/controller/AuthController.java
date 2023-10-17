@@ -5,6 +5,7 @@ import com.finalThird.finalThird.common.jwt.JwtFilter;
 import com.finalThird.finalThird.common.jwt.TokenProvider;
 import com.finalThird.finalThird.auth.controller.dto.LoginRequest;
 import com.finalThird.finalThird.customer.domain.Customer;
+import com.finalThird.finalThird.customer.service.CustomUserDetailsService;
 import com.finalThird.finalThird.customer.service.CustomerService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -29,16 +30,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api")
 @RequiredArgsConstructor
 public class AuthController {
+
   private final TokenProvider tokenProvider;
   private final CustomerService customerService;
   private final AuthenticationManagerBuilder authenticationManagerBuilder;
   private final BCryptPasswordEncoder bCryptPasswordEncoder;
+  private final CustomUserDetailsService customUserDetailsService;
 
-  @Bean
-  public BCryptPasswordEncoder bCryptPasswordEncoder() {
+  BCryptPasswordEncoder passwordEncoder() {
     return new BCryptPasswordEncoder();
   }
-
   @PostMapping("/login")
   public ResponseEntity<TokenDto> loginCustomer(@Valid @RequestBody LoginRequest loginRequest) {
     //검증 로직
@@ -48,33 +49,40 @@ public class AuthController {
       throw new IllegalArgumentException("잘못된 비밀번호입니다.");
     }
 
-//    Result<DataMapList> result = new Result<>();
-//    result.setResultData(new DataMapList(admin.getRoleDetail()));
+    UsernamePasswordAuthenticationToken authenticationToken =
+        new UsernamePasswordAuthenticationToken(loginRequest.getUserEmail(), loginRequest.getPassword());
+
+    // CustomUserDetailsServce에서 만든 loadUserByUserName이 실행된다.
+    Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
+
+    SecurityContextHolder.getContext().setAuthentication(authentication);
+
+    String jwt = tokenProvider.createToken(authentication); // 인증정보를 기반으로 JWT 토큰 생성
+
+    // 토큰을 Response Header, Body 모두에 넣어준다.
+    HttpHeaders httpHeaders = new HttpHeaders();
+    httpHeaders.add(JwtFilter.AUTHORIZATION_HEADER, jwt);
+
+    return new ResponseEntity<>(new TokenDto(jwt), httpHeaders, HttpStatus.OK);
+
+
+//    Authentication authenticationToken =
+//          new UsernamePasswordAuthenticationToken(loginRequest.getUserEmail(), loginRequest.getPassword());
 //
-//    DataMap claim = new DataMap();
+//    Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
 //
-//    claim.put("seqNo", admin.getId());
-//    claim.put("adminId", admin.getAdminId());
-//    claim.put("adminDept", admin.getAdminDept());
-//    claim.put("adminName", admin.getAdminName());
-//    claim.put("phone", admin.getPhone());
-//    claim.put("adminScrGrpCd", admin.getAdminScrGrpCd());
-
-
-    Authentication authenticationToken =
-          new UsernamePasswordAuthenticationToken(loginRequest.getUserEmail(), loginRequest.getPassword());
-
-      // authenticate 메소드가 실행이 될 때 CustomUserDetailsService class의 loadUserByUsername 메소드가 실행
-      // 해당 객체를 SecurityContextHolder에 저장하고
-      SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-      // authentication 객체를 createToken 메소드를 통해서 JWT Token을 생성
-      String jwt = tokenProvider.createToken(authenticationToken);
-
-      HttpHeaders httpHeaders = new HttpHeaders();
-      // response header에 jwt token에 넣어줌
-      httpHeaders.add(JwtFilter.AUTHORIZATION_HEADER, jwt);
-
-      // tokenDto를 이용해 response body에도 넣어서 리턴
-      return new ResponseEntity<>(new TokenDto(jwt), httpHeaders, HttpStatus.OK);
+//    SecurityContextHolder.getContext().setAuthentication(authentication);
+//
+//      // 해당 객체를 SecurityContextHolder에 저장하고
+//      SecurityContextHolder.getContext().setAuthentication(authenticationToken);
+//      // authentication 객체를 createToken 메소드를 통해서 JWT Token을 생성
+//      String jwt = tokenProvider.createToken(authenticationToken);
+//
+//      HttpHeaders httpHeaders = new HttpHeaders();
+//      // response header에 jwt token에 넣어줌
+//      httpHeaders.add(JwtFilter.AUTHORIZATION_HEADER, jwt);
+//
+//      // tokenDto를 이용해 response body에도 넣어서 리턴
+//      return new ResponseEntity<>(new TokenDto(jwt), httpHeaders, HttpStatus.OK);
     }
   }

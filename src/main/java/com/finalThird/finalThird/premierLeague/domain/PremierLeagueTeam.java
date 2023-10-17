@@ -27,4 +27,6 @@ public class PremierLeagueTeam extends BaseEntity {
   @NotNull
   private Long teamRank;
 
+  private boolean activate;
+
 }
