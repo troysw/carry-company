@@ -32,6 +32,11 @@ JPA, Lombok, jwt
 [패키지 구조 설명 링크](https://velog.io/@ksw_dev/%ED%8F%AC%ED%8A%B8%ED%8F%B4%EB%A6%AC%EC%98%A4-%EB%A0%88%EC%9D%B4%EC%96%B4%EB%93%9C-%EC%95%84%ED%82%A4%ED%85%8D%EC%B3%90)
 
 
+### 트러블 슈팅
+
+[jwt bad credential error 해결](https://velog.io/@ksw_dev/%EC%98%A4%EB%A5%98%ED%95%B4%EA%B2%B0-BadCredentialsException-%EC%9E%90%EA%B2%A9-%EC%A6%9D%EB%AA%85%EC%97%90-%EC%8B%A4%ED%8C%A8%ED%95%98%EC%98%80%EC%8A%B5%EB%8B%88%EB%8B%A4)
+
+
 ### 추후 구현 목록
 - dev, prod profile 생성후 aws free tier로 연동 
 - ~~회원, 권한 엔티티 구현 및 기본 로그인, 회원가입 구현~~
