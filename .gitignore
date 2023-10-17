@@ -39,5 +39,5 @@ out/
 ### docker ###
 /docker/postgres
 
-### local_Yaml ###
+### local yaml ###
 application-local.yaml

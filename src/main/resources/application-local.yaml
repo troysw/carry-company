@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:54321/comall
-    username: comall
-    password: comall
+    url: jdbc:postgresql://localhost:54321/final-third
+    username: final-third
+    password: final-third
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
