@@ -34,6 +34,6 @@ https://velog.io/@ksw_dev/%ED%8F%AC%ED%8A%B8%ED%8F%B4%EB%A6%AC%EC%98%A4-%EB%A0%8
 ### 추후 구현 목록
 - dev, prod profile 생성후 aws free tier로 연동 
 - ~~jwt 인증 로그인 및 기본 보안 설정~~
-- 회원, 권한 엔티티 구현 및 기본 로그인, 회원가입 구현
-- 게시판 엔티티 구현 및 연관관계 설정
+- ~~회원, 권한 엔티티 구현 및 기본 로그인, 회원가입 구현~~
+- ~~게시판 엔티티 구현 및 연관관계 설정~~
 - epl 라이브 스코어 footmob open api 연동
