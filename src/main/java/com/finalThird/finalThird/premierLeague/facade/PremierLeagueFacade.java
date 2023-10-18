@@ -5,7 +5,7 @@ import com.finalThird.finalThird.customer.domain.Customer;
 import com.finalThird.finalThird.customer.service.CustomerService;
 import com.finalThird.finalThird.premierLeague.controller.dto.EplRequest;
 import com.finalThird.finalThird.premierLeague.domain.PremierLeagueTeam;
-import com.finalThird.finalThird.premierLeague.service.inport.PremierLeagueService;
+import com.finalThird.finalThird.premierLeague.application.inport.PremierLeagueService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -18,8 +18,7 @@ public class PremierLeagueFacade {
   private final Security security;
 
   public void postEplBoard(String teamName, EplRequest.BoardRequest request) {
-    PremierLeagueTeam team = premierLeagueService.checkTeamActivate(teamName);
     Customer me = security.getMe();
-    premierLeagueService.postEplBoard(request,team, me);
+    premierLeagueService.postEplBoard(request, teamName, me);
   }
 }

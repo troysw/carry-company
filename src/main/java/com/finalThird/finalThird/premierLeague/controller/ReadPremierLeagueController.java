@@ -3,6 +3,7 @@ package com.finalThird.finalThird.premierLeague.controller;
 import com.finalThird.finalThird.common.response.CommonResponse;
 import com.finalThird.finalThird.premierLeague.facade.ReadPremierLeagueFacade;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,10 +16,15 @@ public class ReadPremierLeagueController {
 
   private final ReadPremierLeagueFacade readPremierLeagueFacade;
 
+
+  //팀별 게시판 리스트 조회
   @GetMapping("{teamName}")
-  public CommonResponse readEplBoardList(@PathVariable("teamName") String teamName) {
-    readPremierLeagueFacade.readEplBoardList(teamName);
-    return CommonResponse.success(null);
+  public CommonResponse readEplBoardList(@PathVariable("teamName") String teamName, Pageable pageable) {
+    var res = readPremierLeagueFacade.readEplBoardList(teamName, pageable);
+    return CommonResponse.success(res);
   }
+
+  //팀별 게시판 상세 조회
+
 
 }
