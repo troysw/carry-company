@@ -25,19 +25,19 @@ public class Security {
 
 
   public boolean isMe(String adminId) {
-    final Optional<User> userPrincipal = getAdminOptional();
+    final Optional<User> userPrincipal = getCustomerOptional();
     return userPrincipal.map(user -> user.getUsername().equals(adminId)).orElse(false);
   }
 
 
   public Customer getMe() {
-    User adminOptional = getAdminOptional().orElseThrow(() -> new ApiException(ErrorCode.NOT_LOGIN));
+    User adminOptional = getCustomerOptional().orElseThrow(() -> new ApiException(ErrorCode.NOT_LOGIN));
 
     return customerRepository.findByCustomerEmail(adminOptional.getUsername())
         .orElseThrow(() -> new ApiException(ErrorCode.USER_NOT_FOUND));
   }
 
-  public Optional<User> getAdminOptional() {
+  public Optional<User> getCustomerOptional() {
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
     if (null == authentication || !authentication.isAuthenticated()) {
@@ -57,6 +57,6 @@ public class Security {
   }
 
   public Optional<User> getManagedAdminOptional() {
-    return getAdminOptional().map(em::merge);
+    return getCustomerOptional().map(em::merge);
   }
 }

@@ -59,9 +59,10 @@ public class PremierLeagueBoard extends BaseEntity {
   public EplResponse.boardListResponse toResponse(){
     EplResponse.boardListResponse res = new EplResponse.boardListResponse();
     res.setBoardId(this.boardId);
-    res.setCustomerName(this.getCreateUser().getNickName());
+    res.setCustomerNickName(this.getCreateUser().getNickName());
     res.setTitle(this.getTitle());
     res.setCreatedDate(this.getCreatedDate());
+    res.setViews(this.getViews());
     return res;
   }
 

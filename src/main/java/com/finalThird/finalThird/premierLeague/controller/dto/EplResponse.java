@@ -9,10 +9,10 @@ public class EplResponse {
   @Data
   public static class boardListResponse {
     public Long boardId;
-    public String customerName;
+    public String customerNickName;
     public String title;
     public LocalDateTime createdDate;
-    public Long views;
+    public int views;
   }
 
 }
