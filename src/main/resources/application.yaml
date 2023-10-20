@@ -19,3 +19,6 @@ jwt:
 logging:
   level:
     org.springframework.security.web: DEBUG
+
+server:
+  port: ${port:8080}
