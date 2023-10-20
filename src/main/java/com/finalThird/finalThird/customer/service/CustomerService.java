@@ -42,6 +42,9 @@ public class CustomerService {
     Customer user = Customer.builder()
         .customerEmail(userDto.getCustomerEmail())
         .password(passwordEncoder.encode(userDto.getPassword()))
+        .customerName(userDto.getCustomerName())
+        .nickName(userDto.getCustomerNickName())
+        .customerPhone(userDto.getCustomerPhone())
         .authorities(Collections.singleton(authority))
         .activated(true)
         .build();

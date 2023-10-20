@@ -4,6 +4,7 @@ import com.finalThird.finalThird.common.response.CommonResponse;
 import com.finalThird.finalThird.premierLeague.facade.ReadPremierLeagueFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
