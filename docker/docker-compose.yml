@@ -11,3 +11,13 @@ services:
       - TZ=UTC
     volumes:
       - ./postgres:/var/lib/postgresql/data
+
+  final-third-redis:
+    image: redis:6.0.2
+    command: redis-server /usr/local/etc/redis/redis.conf --port 6379
+    ports:
+      - 6380:6379
+    platform: linux/amd64
+    volumes:
+      - ./redis/redis.conf:/usr/local/etc/redis/redis.conf:rw
+      - ./redis/users.acl:/usr/local/etc/redis/users.acl:rw
