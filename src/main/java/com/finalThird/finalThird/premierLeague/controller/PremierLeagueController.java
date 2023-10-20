@@ -6,6 +6,7 @@ import com.finalThird.finalThird.premierLeague.facade.PremierLeagueFacade;
 import com.finalThird.finalThird.premierLeague.facade.ReadPremierLeagueFacade;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -16,6 +17,7 @@ public class PremierLeagueController {
   private final PremierLeagueFacade premierLeagueFacade;
 
   @PostMapping({"teamName"})
+  @PreAuthorize("hasAnyRole('USER','ADMIN')")
   public CommonResponse postEplBoardList(@PathVariable("teamName")String teamName,
                                          @Valid @RequestBody EplRequest.BoardRequest request) {
     premierLeagueFacade.postEplBoard(teamName, request);
@@ -23,6 +25,7 @@ public class PremierLeagueController {
   }
 
   @PatchMapping({"boardId"})
+  @PreAuthorize("hasAnyRole('USER','ADMIN')")
   public CommonResponse updateEplBoardList(@PathVariable("boardId")Long boardId,
                                          @Valid @RequestBody EplRequest.BoardPatchRequest request) {
     premierLeagueFacade.updateEplBoard(boardId, request);
