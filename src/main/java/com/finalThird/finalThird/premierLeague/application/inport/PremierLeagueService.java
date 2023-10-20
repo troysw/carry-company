@@ -10,4 +10,6 @@ public interface PremierLeagueService {
   void postEplBoard(EplRequest.BoardRequest request, String teamName, Customer me);
 
   PremierLeagueTeam checkTeamActivate(String teamName);
+
+  void patchEplBoard(Long boardId, EplRequest.BoardPatchRequest request, Customer me);
 }

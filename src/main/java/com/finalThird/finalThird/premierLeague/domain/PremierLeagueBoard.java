@@ -67,4 +67,8 @@ public class PremierLeagueBoard extends BaseEntity {
   }
 
 
+  public void modify(EplRequest.BoardPatchRequest request) {
+    this.title = request.getTitle();
+    this.content = request.getContent();
+  }
 }
