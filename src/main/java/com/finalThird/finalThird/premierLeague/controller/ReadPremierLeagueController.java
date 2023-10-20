@@ -20,7 +20,6 @@ public class ReadPremierLeagueController {
 
   //팀별 게시판 리스트 조회
   @GetMapping("{teamName}")
-  @PreAuthorize("hasAnyRole('USER','ADMIN')")
   public CommonResponse readEplBoardList(@PathVariable("teamName") String teamName, Pageable pageable) {
     var res = readPremierLeagueFacade.readEplBoardList(teamName, pageable);
     return CommonResponse.success(res);
