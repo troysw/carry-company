@@ -1,7 +1,9 @@
 package com.finalThird.finalThird.premierLeague.external.eplBoard;
 
+import com.finalThird.finalThird.common.exception.premierLeagueBoard.BoardNotFoundException;
 import com.finalThird.finalThird.common.exception.premierLeagueBoard.TeamNotFoundException;
 import com.finalThird.finalThird.premierLeague.application.outport.eplBoardReader;
+import com.finalThird.finalThird.premierLeague.domain.PremierLeagueBoard;
 import com.finalThird.finalThird.premierLeague.domain.PremierLeagueTeam;
 import com.finalThird.finalThird.premierLeague.external.repository.PremierLeagueBoardRepository;
 import com.finalThird.finalThird.premierLeague.external.repository.PremierLeagueTeamRepository;
@@ -24,4 +26,10 @@ public class eplBoardReaderImpl implements eplBoardReader {
   public PremierLeagueTeam findTeam(String teamName) {
     return teamRepository.findByTeamName(teamName).orElseThrow(TeamNotFoundException::new);
   }
+
+  @Override
+  public PremierLeagueBoard findBoardById(Long boardId) {
+    return boardRepository.findById(boardId).orElseThrow(BoardNotFoundException::new);
+  }
+
 }
