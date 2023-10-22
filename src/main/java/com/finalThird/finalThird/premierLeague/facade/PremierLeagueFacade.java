@@ -12,17 +12,21 @@ import org.springframework.stereotype.Service;
 @Service
 public class PremierLeagueFacade {
 
-  private final PremierLeagueService premierLeagueService;
+  private final PremierLeagueService leagueService;
   private final CustomerService customerService;
   private final Security security;
 
   public void postEplBoard(String teamName, EplRequest.BoardRequest request) {
     Customer me = security.getMe();
-    premierLeagueService.postEplBoard(request, teamName, me);
+    leagueService.postEplBoard(request, teamName, me);
   }
 
   public void updateEplBoard(Long boardId, EplRequest.BoardPatchRequest request) {
     Customer me = security.getMe();
-    premierLeagueService.patchEplBoard(boardId ,request, me);
+    leagueService.patchEplBoard(boardId ,request, me);
+  }
+
+  public void createManualTeam(EplRequest.CreateManualTeam request) {
+    leagueService.postManualTeam(request);
   }
 }

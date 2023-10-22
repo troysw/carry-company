@@ -10,3 +10,8 @@ spring:
     show_sql: true
     database: postgresql
 
+  data:
+    redis:
+      host: localhost
+      port: 6380
+      password: final-third!

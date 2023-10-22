@@ -3,7 +3,6 @@ package com.finalThird.finalThird.premierLeague.controller;
 import com.finalThird.finalThird.common.response.CommonResponse;
 import com.finalThird.finalThird.premierLeague.controller.dto.EplRequest;
 import com.finalThird.finalThird.premierLeague.facade.PremierLeagueFacade;
-import com.finalThird.finalThird.premierLeague.facade.ReadPremierLeagueFacade;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -14,21 +13,28 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/epl")
 public class PremierLeagueController {
 
-  private final PremierLeagueFacade premierLeagueFacade;
+  private final PremierLeagueFacade facade;
 
-  @PostMapping({"teamName"})
-  @PreAuthorize("hasAnyRole('USER','ADMIN')")
-  public CommonResponse postEplBoardList(@PathVariable("teamName")String teamName,
-                                         @Valid @RequestBody EplRequest.BoardRequest request) {
-    premierLeagueFacade.postEplBoard(teamName, request);
+  @PostMapping("make-team-manual")
+//  @PreAuthorize("hasAnyRole('ADMIN')") 추후 도입
+  public CommonResponse postEplTeamManual(@Valid @RequestBody EplRequest.CreateManualTeam request){
+    facade.createManualTeam(request);
     return CommonResponse.success(null, "성공적으로 저장 되었습니다.");
   }
 
-  @PatchMapping({"boardId"})
+  @PostMapping("{teamName}")
+  @PreAuthorize("hasAnyRole('USER','ADMIN')")
+  public CommonResponse postEplBoardList(@PathVariable("teamName")String teamName,
+                                         @Valid @RequestBody EplRequest.BoardRequest request) {
+    facade.postEplBoard(teamName, request);
+    return CommonResponse.success(null, "성공적으로 저장 되었습니다.");
+  }
+
+  @PatchMapping("{boardId}")
   @PreAuthorize("hasAnyRole('USER','ADMIN')")
   public CommonResponse updateEplBoardList(@PathVariable("boardId")Long boardId,
                                          @Valid @RequestBody EplRequest.BoardPatchRequest request) {
-    premierLeagueFacade.updateEplBoard(boardId, request);
+    facade.updateEplBoard(boardId, request);
     return CommonResponse.success(null, "성공적으로 저장 되었습니다.");
   }
 

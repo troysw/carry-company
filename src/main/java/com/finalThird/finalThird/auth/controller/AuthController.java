@@ -1,5 +1,6 @@
 package com.finalThird.finalThird.auth.controller;
 
+import com.finalThird.finalThird.auth.controller.dto.Token;
 import com.finalThird.finalThird.common.jwt.dto.TokenDto;
 import com.finalThird.finalThird.common.jwt.JwtFilter;
 import com.finalThird.finalThird.common.jwt.TokenProvider;
@@ -10,7 +11,6 @@ import com.finalThird.finalThird.customer.service.CustomerService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -57,13 +57,14 @@ public class AuthController {
 
     SecurityContextHolder.getContext().setAuthentication(authentication);
 
-    String jwt = tokenProvider.createToken(authentication); // 인증정보를 기반으로 JWT 토큰 생성
+    String jwtacc = tokenProvider.createAccessToken(authentication); // 인증정보를 기반으로 JWT 토큰 생성
+    String jwtrefresh = tokenProvider.createRefreshToken(authentication); // 인증정보를 기반으로 JWT 토큰 생성
 
     // 토큰을 Response Header, Body 모두에 넣어준다.
     HttpHeaders httpHeaders = new HttpHeaders();
-    httpHeaders.add(JwtFilter.AUTHORIZATION_HEADER, jwt);
+    httpHeaders.add(JwtFilter.AUTHORIZATION_HEADER, jwtacc);
 
-    return new ResponseEntity<>(new TokenDto(jwt), httpHeaders, HttpStatus.OK);
+    return new ResponseEntity<>(new TokenDto(jwtacc, jwtrefresh), httpHeaders, HttpStatus.OK);
 
 
 //    Authentication authenticationToken =
