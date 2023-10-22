@@ -30,6 +30,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.UnsupportedEncodingException;
 import java.security.Key;
@@ -87,31 +88,24 @@ public class TokenProvider implements InitializingBean {
     return accessToken;
   }
 
-  public String createAccessToken(String userPk, HashMap<String, Object> claim) {
-    return createToken(userPk, claim, accessTokenTime, secret);
+  public String createAccessToken(String userPk) {
+    return createToken(userPk, accessTokenTime, secret);
   }
 
-  public String createRefreshToken(String userPk) {
-    return createToken(userPk, null, refreshTokenTime, secret);
-  }
-
-
-  private String createToken(String userPk, HashMap<String, Object> claim, Long expiration, String secret) {
-    Claims claims = Jwts.claims().setSubject(userPk); // JWT payload 에 저장되는 정보단위
-    if (claim != null) {
-      claims.put("userInfo", claim);
-    }
+  private String createToken(String userPk, Long expiration, String secret) {
     Date now = new Date();
     return Jwts.builder()
+        .setSubject(userPk)
         .setHeaderParam("typ", "JWT")
-        .setClaims(claims) // 정보 저장
         .setIssuedAt(now) // 토큰 발행 시간 정보
         .setExpiration(new Date(now.getTime() + expiration)) // set Expire Time
-        .signWith(SignatureAlgorithm.HS256, secret)  // 사용할 암호화 알고리즘과
-        // signature 에 들어갈 secret값 세팅
+        .signWith(SignatureAlgorithm.HS512, secret)  // 사용할 암호화 알고리즘과 signature 에 들어갈 secret값 세팅
         .compact();
   }
 
+  public String createRefreshToken(String userPk) {
+    return createToken(userPk, refreshTokenTime, secret);
+  }
 
   public String createRefreshToken(Authentication authentication) {
     String authorities = authentication.getAuthorities().stream()
@@ -186,6 +180,7 @@ public class TokenProvider implements InitializingBean {
     return false;
   }
 
+  @Transactional(readOnly = true)
   public void tokenAuthentication(HttpServletResponse response, String accessToken, String refreshToken) {
     if (accessToken == null && refreshToken == null) {
       return;
@@ -202,6 +197,8 @@ public class TokenProvider implements InitializingBean {
     if (!validateToken(accessToken)) {
       throw new AuthException(ErrorCode.INVALID_ACCESS_TOKEN);
     }
+
+    Authentication authentication1 = SecurityContextHolder.getContext().getAuthentication();
 
     if (SecurityContextHolder.getContext().getAuthentication() == null) {
       Authentication authentication = getAccessAuthentication(accessToken);
@@ -260,21 +257,16 @@ public class TokenProvider implements InitializingBean {
       throw new AuthException(ErrorCode.RUNTIME_EXCEPTION_TOKEN);
     }
 
-    String id = object.get("customerEmail").toString();
-    Optional<String> refreshTokenInDB = selectRefreshToken(id);
+    String customerEmail = object.get("customerEmail").toString();
+    Optional<String> refreshTokenInDB = selectRefreshToken(customerEmail);
 
     if (refreshTokenInDB.isEmpty() || !refreshTokenInDB.get().equals(refreshToken)) {
       throw new AuthException(ErrorCode.INVALID_REFRESH_TOKEN);
     }
 
-    Customer user = customerReader.findByCustomerEmail(id).orElseThrow(() -> new ApiException(ErrorCode.USER_NOT_FOUND));
+    Customer user = customerReader.findByCustomerEmail(customerEmail).orElseThrow(() -> new ApiException(ErrorCode.USER_NOT_FOUND));
 
-    HashMap<String, Object> claim = new HashMap<>();
-
-    claim.put("customerEmail", user.getCustomerEmail());
-    claim.put("role", user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.joining(",")));
-
-    String accessJws = createAccessToken(id, claim);
+    String accessJws = createAccessToken(customerEmail);
     Authentication authentication = getAccessAuthentication(accessJws);
     SecurityContextHolder.getContext().setAuthentication(authentication);
 

@@ -48,6 +48,12 @@ public class PremierLeagueServiceImpl implements PremierLeagueService {
     board.modify(request);
   }
 
+  @Override
+  public void postManualTeam(EplRequest.CreateManualTeam request) {
+    PremierLeagueTeam team = new PremierLeagueTeam().create(request);
+    store.createTeam(team);
+  }
+
   private static void createdUserValidation(Customer me, PremierLeagueBoard board) {
     if(board.getCreateUser().getCustomerEmail().equals(me.getCustomerEmail())){
       throw new ApiException(ErrorCode.INVALID_USER);

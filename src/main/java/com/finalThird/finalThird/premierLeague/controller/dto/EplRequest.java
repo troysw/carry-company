@@ -20,6 +20,16 @@ public class EplRequest {
   }
 
   @Data
+  public static class CreateManualTeam {
+    @NotNull
+    public String teamName;
+    @NotNull
+    public String customerEmail;
+    @NotNull
+    public int teamRank;
+  }
+
+  @Data
   public static class BoardPatchRequest {
     @NotNull
     public String teamName;
