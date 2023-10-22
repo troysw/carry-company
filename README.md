@@ -34,9 +34,16 @@ JPA, Lombok, jwt
  - domain
  - repository
 
-기존 레이어드 구조에 파사드 패턴, application 단 을 추가.
+기존 레이어드 구조에 파사드 패턴을 구분 하고, application 단 을 추가.
 
 [패키지 구조 설명 링크](https://velog.io/@ksw_dev/%ED%8F%AC%ED%8A%B8%ED%8F%B4%EB%A6%AC%EC%98%A4-%EB%A0%88%EC%9D%B4%EC%96%B4%EB%93%9C-%EC%95%84%ED%82%A4%ED%85%8D%EC%B3%90)
+
+
+controller / facade / application 에서
+
+ReadDomainController와 DomianController로 구분해
+
+가독성과 유지보수성을 고려해서 select 관련된 쿼리들만 따로 관리
 
 
 ## 추후 구현 목록
@@ -47,3 +54,5 @@ JPA, Lombok, jwt
 - jwt 리프레시 토큰 로직 구현 (스프링 캐시 ? redis?)
 - oauth2 로그인 구현으로 구글, 카카오, 네이버 연동 
 - epl 라이브 스코어 footmob open api 연동
+- 로그인 / 회원가입 구현
+- 게시판 팀별 CRUD 구현
