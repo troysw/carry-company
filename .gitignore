@@ -38,6 +38,6 @@ out/
 
 ### docker ###
 /docker/postgres
-
+/docker/redis
 ### local yaml ###
 application-local.yaml

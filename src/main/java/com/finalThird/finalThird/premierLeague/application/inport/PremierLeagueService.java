@@ -12,4 +12,6 @@ public interface PremierLeagueService {
   PremierLeagueTeam checkTeamActivate(String teamName);
 
   void patchEplBoard(Long boardId, EplRequest.BoardPatchRequest request, Customer me);
+
+  void postManualTeam(EplRequest.CreateManualTeam request);
 }

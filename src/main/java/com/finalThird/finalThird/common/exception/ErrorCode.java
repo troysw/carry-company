@@ -8,18 +8,6 @@ import org.springframework.http.HttpStatus;
 @ToString
 public enum ErrorCode {
 
-  /* 400 BAD_REQUEST : 잘못된 요청 */
-  MISSING_ORDER_STATUS(
-      HttpStatus.BAD_REQUEST,
-      "400-001-D",
-      "주문 상태 구분 또는 구분 상태 값이 없습니다.\n(둘중 하나는 필수값입니다)"
-  ),
-  MISSING_ORDER_NUMBER(
-      HttpStatus.BAD_REQUEST,
-      "400-002-D",
-      "주문 상태 구분 또는 구분 상태 값이 없습니다.\n(둘중 하나는 필수값입니다)"
-  ),
-
   BAD_CODE_GROUP(HttpStatus.BAD_REQUEST, "400-003-D", "잘못된 대분류코드 입니다."),
 
   VALIDATION_FAILED(HttpStatus.BAD_REQUEST, "400-004-D", "잘못된 요청입니다."),
@@ -50,26 +38,8 @@ public enum ErrorCode {
       "500-001-D",
       "서버와 통신 처리 중 오류가 발생 하였습니다."),
 
-
-  /*아래는 디폴트 에러*/
-  INSERT_PAGE_GROUP_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "500-019-D", "페이지 그룹 생성 중 오류가 발생 했습니다."),
-  UPDATE_PAGE_GROUP_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "500-020-D", "페이지 그룹 수정 중 오류가 발생 했습니다."),
-  DELETE_PAGE_GROUP_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "500-021-D", "페이지 그룹 삭제 중 오류가 발생 했습니다."),
-  INSERT_PAGE_LIST_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "500-022-D", "페이지 생성 중 오류가 발생 했습니다."),
-  UPDATE_PAGE_LIST_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "500-023-D", "페이지 수정 중 오류가 발생 했습니다."),
-  DELETE_PAGE_LIST_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "500-024-D", "페이지 삭제 중 오류가 발생 했습니다."),
-  INSERT_ADMIN_GROUP_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "500-025-D", "관리자 그룹 생성 중 오류가 발생 했습니다."),
-  UPDATE_ADMIN_GROUP_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "500-026-D", "관리자 그룹 수정 중 오류가 발생 했습니다."),
-  DELETE_ADMIN_GROUP_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "500-027-D", "관리자 그룹 삭제 중 오류가 발생 했습니다."),
-  INSERT_ADMIN_LIST_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "500-028-D", "관리자 생성 중 오류가 발생 했습니다."),
-  UPDATE_ADMIN_LIST_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "500-029-D", "관리자 수정 중 오류가 발생 했습니다."),
-  DELETE_ADMIN_LIST_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "500-030-D", "관리자 삭제 중 오류가 발생 했습니다."),
-  UPDATE_IP_AUTH_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "500-031-D", "아이피 인증 처리중 오류가 발생 했습니다."),
-
   FILE_DOWNLOAD_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "파일 다운로드 중 오류가 발생 했습니다."),
   /*아래는 디폴트 에러*/
-
-  /* 400 BAD_REQUEST : 잘못된 요청 */
 
   /* 401 UNAUTHORIZED : 인증되지 않은 사용자 */
   INVALID_REFRESH_TOKEN(HttpStatus.UNAUTHORIZED, "리프레시 토큰이 유효하지 않습니다.\n(다른 PC에서 로그인 되었거나, 토큰이 만료되었습니다.)\n\n다시 로그인해 주세요."),

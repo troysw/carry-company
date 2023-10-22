@@ -1,6 +1,7 @@
 package com.finalThird.finalThird.premierLeague.domain;
 
 import com.finalThird.finalThird.common.entity.BaseEntity;
+import com.finalThird.finalThird.premierLeague.controller.dto.EplRequest;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
@@ -22,11 +23,19 @@ public class PremierLeagueTeam extends BaseEntity {
   private Long teamId;
 
   @NotNull
+  @Column(name="teamName" , unique=true)
   private String teamName;
 
   @NotNull
-  private Long teamRank;
+  private int teamRank;
 
   private boolean activate;
 
+  public PremierLeagueTeam create(EplRequest.CreateManualTeam request) {
+    PremierLeagueTeam res = new PremierLeagueTeam();
+    res.setTeamName(request.getTeamName());
+    res.setActivate(true);
+    res.setTeamRank(request.getTeamRank());
+    return res;
+  }
 }
