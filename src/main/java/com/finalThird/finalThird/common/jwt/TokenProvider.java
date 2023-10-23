@@ -43,8 +43,6 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class TokenProvider implements InitializingBean {
 
-  private final RedisTemplate<String, String> redisTemplate;
-
   private final Logger logger = LoggerFactory.getLogger(TokenProvider.class);
   private static final String AUTHORITIES_KEY = "auth";
 
@@ -123,12 +121,12 @@ public class TokenProvider implements InitializingBean {
         .setExpiration(refreshTime) // set Expire Time 해당 옵션 안넣으면 expire안함
         .compact();
 
-    redisTemplate.opsForValue().set(
+    redisRepository.setValue(
         authentication.getName(),
         refreshToken,
         this.refreshTokenTime,
-        TimeUnit.MILLISECONDS
-    );
+        TimeUnit.MILLISECONDS);
+
     return refreshToken;
   }
 
@@ -235,6 +233,7 @@ public class TokenProvider implements InitializingBean {
   }
 
   private String refreshTokenHandling(String accessToken, String refreshToken) {
+    //리프레시 토큰 벨리데이션
     if (!validateToken(refreshToken)) {
       throw new AuthException(ErrorCode.EXPIRED_REFRESH_TOKEN);
     }
@@ -242,11 +241,12 @@ public class TokenProvider implements InitializingBean {
     if (accessToken == null) {
       throw new AuthException(ErrorCode.INVALID_ACCESS_TOKEN);
     }
-
+    //엑세스 토큰 벨리데이션
     if (!validateToken(accessToken)) {
       throw new AuthException(ErrorCode.EXPIRED_REFRESH_TOKEN);
     }
 
+    // 엑세스 토큰을 디코딩해 email 정보 가져옴
     String accessTokenDecode = decode(accessToken);
     org.json.simple.parser.JSONParser parser = new JSONParser();
     JSONObject object;
@@ -257,9 +257,10 @@ public class TokenProvider implements InitializingBean {
       throw new AuthException(ErrorCode.RUNTIME_EXCEPTION_TOKEN);
     }
 
-    String customerEmail = object.get("customerEmail").toString();
+    String customerEmail = object.get("sub").toString();
     Optional<String> refreshTokenInDB = selectRefreshToken(customerEmail);
 
+    // 레디스 db에 저장된 리프레시 토큰과 맞는지 검증
     if (refreshTokenInDB.isEmpty() || !refreshTokenInDB.get().equals(refreshToken)) {
       throw new AuthException(ErrorCode.INVALID_REFRESH_TOKEN);
     }
@@ -288,7 +289,7 @@ public class TokenProvider implements InitializingBean {
   }
 
   public Optional<String> selectRefreshToken(String userId) {
-    return Optional.ofNullable(redisRepository.getValue(redisRepository.getValue(userId)));
+    return Optional.ofNullable(redisRepository.getValue(userId));
   }
 
 
