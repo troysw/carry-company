@@ -1,8 +1,11 @@
 package com.finalThird.finalThird.customer.controller;
 
+import com.finalThird.finalThird.common.response.CommonResponse;
+import com.finalThird.finalThird.customer.controller.dto.CustomerResponse;
 import com.finalThird.finalThird.customer.service.CustomerService;
 import com.finalThird.finalThird.customer.controller.dto.CustomerRequest;
 import com.finalThird.finalThird.customer.domain.Customer;
+import com.finalThird.finalThird.premierLeague.controller.dto.EplRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +19,7 @@ public class CustomerController {
   private final CustomerService customerService;
 
   @PostMapping("/signup")
-  public ResponseEntity<Customer> signup(@Valid @RequestBody CustomerRequest userDto) {
+  public ResponseEntity<CustomerResponse.JoinResponse> signup(@Valid @RequestBody CustomerRequest.JoinRequest userDto) {
     return ResponseEntity.ok(customerService.signup(userDto));
   }
 
@@ -28,7 +31,21 @@ public class CustomerController {
 
   @GetMapping("/user/{username}")
   @PreAuthorize("hasAnyRole('ADMIN')")
-  public ResponseEntity<Customer> getUserInfo(@PathVariable String username) {
-    return ResponseEntity.ok(customerService.getUserWithAuthorities(username).get());
+  public ResponseEntity<CustomerResponse.JoinResponse> getUserInfo(@PathVariable String username) {
+    return ResponseEntity.ok(customerService.getUserWithAuthorities(username));
+  }
+
+  @GetMapping("/user/myInfo")
+  @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+  public CommonResponse getMyInformation() {
+    CustomerResponse.Information me = customerService.getMe();
+    return CommonResponse.success(me, "본인 정보를 조회 했습니다.");
+  }
+
+  @PatchMapping("/user/myInfo")
+  @PreAuthorize("hasAnyRole('ADMIN', 'USER')")
+  public CommonResponse patchMyInformation() {
+    CustomerResponse.Information me = customerService.getMe();
+    return CommonResponse.success(me, "본인 정보를 조회 했습니다.");
   }
 }
