@@ -16,7 +16,7 @@ public class PremierLeagueController {
   private final PremierLeagueFacade facade;
 
   @PostMapping("make-team-manual")
-//  @PreAuthorize("hasAnyRole('ADMIN')") 추후 도입
+//todo  @PreAuthorize("hasAnyRole('ADMIN')") 추후 도입
   public CommonResponse postEplTeamManual(@Valid @RequestBody EplRequest.CreateManualTeam request){
     facade.createManualTeam(request);
     return CommonResponse.success(null, "성공적으로 저장 되었습니다.");

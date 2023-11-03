@@ -11,12 +11,21 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CustomerRequest {
+public class CustomerResponse {
 
+  @Getter
+  @Setter
+  public static class Information {
+
+    private String customerEmail;
+    private String customerName;
+    private String customerNickName;
+    private String customerPhone;
+  }
 
   @Setter
   @Getter
-  public static class JoinRequest{
+  public static class JoinResponse{
 
     @NotNull
     @Size(min = 3, max = 50)
