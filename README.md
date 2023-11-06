@@ -45,14 +45,15 @@ ReadDomainController와 DomianController로 구분해
 
 가독성과 유지보수성을 고려해서 select 관련된 쿼리들만 따로 관리
 
-
-## 추후 구현 목록
-- ~~dev, prod profile 생성후 aws free tier로 연동~~ -> dev 서버를 띄울 여유가 없어 그냥 aws 연동만 완료  
-- ~~회원, 권한 엔티티 구현 및 기본 로그인, 회원가입 구현~~
-- ~~게시판 엔티티 구현 및 연관관계 설정~~
-- ~~jwt 인증 로그인 및 기본 보안 설정~~
-- ~~jwt 리프레시 토큰 로직 구현 (스프링 캐시 ? redis?)~~ -> redis 사용으로 적용 완료
-- ~~로그인 / 회원가입 구현~~
-- oauth2 로그인 구현으로 구글, 카카오, 네이버 연동 
-- epl 라이브 스코어 footmob open api 연동
+## 완료된 구현 목록
+- dev, prod profile 생성후 aws free tier로 연동 -> dev 서버를 띄울 여유가 없어 그냥 aws 연동만 완료  
+- 회원, 권한 엔티티 구현 및 기본 로그인, 회원가입 구현
+- 게시판 엔티티 구현 및 연관관계 설정
+- jwt 인증 로그인 및 기본 보안 설정
+- jwt 리프레시 토큰 로직 구현 -> redis 사용으로 적용 완료
+- 로그인 / 회원가입 구현
 - 게시판 팀별 CRUD 구현
+
+  
+## 추후 구현 목록
+- epl 라이브 스코어 footmob open api 연동
