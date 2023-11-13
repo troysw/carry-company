@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:54321/final-third
-    username: final-third
-    password: final-third
+    url: jdbc:postgresql://localhost:54321/carry-company
+    username: carry-company
+    password: carry-company
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
@@ -14,4 +14,4 @@ spring:
     redis:
       host: localhost
       port: 6380
-      password: final-third!
+      password: carry-company!
