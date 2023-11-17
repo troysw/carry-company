@@ -83,24 +83,30 @@ public class TokenProvider implements InitializingBean {
     return accessToken;
   }
 
-  public String createAccessToken(String userPk) {
-    return createToken(userPk, accessTokenTime, secret);
+  public String createAccessToken(String userPk, HashMap<String, Object> claim) {
+    return createToken(userPk, accessTokenTime, secret, claim);
   }
 
-  private String createToken(String userPk, Long expiration, String secret) {
+  private String createToken(String userPk, Long expiration, String secret, HashMap<String, Object> claim) {
     Date now = new Date();
+
+    Claims claims = Jwts.claims().setSubject(userPk); // JWT payload 에 저장되는 정보단위
+    if (claim != null) {
+      claims.put("userInfo", claim);
+    }
+
+
+
     return Jwts.builder()
         .setSubject(userPk)
         .setHeaderParam("typ", "JWT")
         .setIssuedAt(now) // 토큰 발행 시간 정보
         .setExpiration(new Date(now.getTime() + expiration)) // set Expire Time
+        .setClaims(claims)
         .signWith(SignatureAlgorithm.HS512, secret)  // 사용할 암호화 알고리즘과 signature 에 들어갈 secret값 세팅
         .compact();
   }
 
-  public String createRefreshToken(String userPk) {
-    return createToken(userPk, refreshTokenTime, secret);
-  }
 
   public String createRefreshToken(Authentication authentication) {
     String authorities = authentication.getAuthorities().stream()
@@ -264,7 +270,14 @@ public class TokenProvider implements InitializingBean {
 
     Customer user = customerReader.findByCustomerEmail(customerEmail).orElseThrow(() -> new ApiException(ErrorCode.USER_NOT_FOUND));
 
-    String accessJws = createAccessToken(customerEmail);
+    HashMap<String,Object> claim = new HashMap<String,Object>();
+    claim.put("seqNo", user.getCustomerId());
+    claim.put("adminId", user.getCustomerEmail());
+    claim.put("adminName", user.getCustomerName());
+    claim.put("phone", user.getCustomerPhone());
+    claim.put("role", user.getAuthorities());
+
+    String accessJws = createAccessToken(customerEmail,claim);
     Authentication authentication = getAccessAuthentication(accessJws);
     SecurityContextHolder.getContext().setAuthentication(authentication);
 
