@@ -33,10 +33,9 @@ public class CustomerService {
       throw new CustomerAlreadyExistException();
     }
 
-    // 가입되어 있지 않은 회원이면,
-    // 권한 정보 만들고
+    // 권한 정보 만들고 (기본 사원 처리)
     Authority authority = Authority.builder()
-        .authorityName("ROLE_USER")
+        .authorityName("ROLE_STAFF")
         .build();
 
     // 유저 정보를 만들어서 save
@@ -62,7 +61,6 @@ public class CustomerService {
         .customerEmail(userDto.getCustomerEmail())
         .password(passwordEncoder.encode(userDto.getPassword()))
         .customerName(userDto.getCustomerName())
-        .nickName(userDto.getCustomerNickName())
         .customerPhone(userDto.getCustomerPhone())
         .authorities(Collections.singleton(authority))
         .activated(true)

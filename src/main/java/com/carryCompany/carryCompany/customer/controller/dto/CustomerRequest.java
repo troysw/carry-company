@@ -26,10 +26,6 @@ public class CustomerRequest {
     @Size(min = 3, max = 50)
     private String customerName;
 
-    @NotNull
-    @Size(min = 2, max = 50)
-    private String customerNickName;
-
     //역직렬화 할때만 접근 허용
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @NotNull
@@ -37,6 +33,9 @@ public class CustomerRequest {
     private String password;
 
     private String customerPhone;
+
+    @NotNull
+    private String authority;
   }
 
 }
