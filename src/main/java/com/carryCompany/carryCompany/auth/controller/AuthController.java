@@ -56,33 +56,13 @@ public class AuthController {
 
     SecurityContextHolder.getContext().setAuthentication(authentication);
 
-    String jwtacc = tokenProvider.createAccessToken(authentication); // 인증정보를 기반으로 JWT 토큰 생성
-    String jwtrefresh = tokenProvider.createRefreshToken(authentication); // 인증정보를 기반으로 JWT 토큰 생성
+    String accessToken = tokenProvider.createAccessToken(authentication); // 인증정보를 기반으로 JWT 토큰 생성
+    String jwtRefreshToken = tokenProvider.createRefreshToken(authentication); // 인증정보를 기반으로 JWT 토큰 생성
 
     // 토큰을 Response Header, Body 모두에 넣어준다.
     HttpHeaders httpHeaders = new HttpHeaders();
-    httpHeaders.add(JwtFilter.AUTHORIZATION_HEADER, jwtacc);
+    httpHeaders.add(JwtFilter.AUTHORIZATION_HEADER, accessToken);
 
-    return new ResponseEntity<>(new TokenDto(jwtacc, jwtrefresh), httpHeaders, HttpStatus.OK);
-
-
-//    Authentication authenticationToken =
-//          new UsernamePasswordAuthenticationToken(loginRequest.getUserEmail(), loginRequest.getPassword());
-//
-//    Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
-//
-//    SecurityContextHolder.getContext().setAuthentication(authentication);
-//
-//      // 해당 객체를 SecurityContextHolder에 저장하고
-//      SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-//      // authentication 객체를 createToken 메소드를 통해서 JWT Token을 생성
-//      String jwt = tokenProvider.createToken(authenticationToken);
-//
-//      HttpHeaders httpHeaders = new HttpHeaders();
-//      // response header에 jwt token에 넣어줌
-//      httpHeaders.add(JwtFilter.AUTHORIZATION_HEADER, jwt);
-//
-//      // tokenDto를 이용해 response body에도 넣어서 리턴
-//      return new ResponseEntity<>(new TokenDto(jwt), httpHeaders, HttpStatus.OK);
+    return new ResponseEntity<>(new TokenDto(accessToken, jwtRefreshToken), httpHeaders, HttpStatus.OK);
     }
   }
