@@ -1,7 +1,6 @@
 package com.carryCompany.carryCompany.truckDriver;
 
 import com.carryCompany.carryCompany.common.entity.BaseEntity;
-import com.carryCompany.carryCompany.product.Product;
 import com.carryCompany.carryCompany.truck.Truck;
 import jakarta.persistence.*;
 import lombok.AccessLevel;

@@ -105,4 +105,8 @@ public class CustomerService {
 
     return res;
   }
+
+  public Optional<Customer> findByEmail(String userEmail) {
+    return customerRepository.findByCustomerEmail(userEmail);
+  }
 }

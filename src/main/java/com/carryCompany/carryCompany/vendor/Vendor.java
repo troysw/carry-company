@@ -36,4 +36,6 @@ public class Vendor extends BaseEntity {
   private String vendorTelNumber;
 
   private String vendorState;
+
+
 }

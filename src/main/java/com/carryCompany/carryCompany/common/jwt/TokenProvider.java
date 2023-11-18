@@ -41,7 +41,7 @@ import java.util.stream.Collectors;
 public class TokenProvider implements InitializingBean {
 
   private final Logger logger = LoggerFactory.getLogger(TokenProvider.class);
-  private static final String AUTHORITIES_KEY = "auth";
+  private static final String AUTHORITIES_KEY = "authorization";
 
   @Value("${jwt.response.header}")
   private String accessHeader;
@@ -71,6 +71,16 @@ public class TokenProvider implements InitializingBean {
     long now = (new Date()).getTime();
     Date accessTime = new Date(now + this.accessTokenTime);
 
+//    Customer user = customerReader.findByCustomerEmail(customerEmail).orElseThrow(() ->
+//            new ApiException(ErrorCode.USER_NOT_FOUND));
+//
+//    HashMap<String,Object> claim = new HashMap<String,Object>();
+//    claim.put("userId", user.getCustomerId());
+//    claim.put("userEmail", user.getCustomerEmail());
+//    claim.put("userName", user.getCustomerName());
+//    claim.put("userPhone", user.getCustomerPhone());
+//    claim.put("role", user.getAuthorities());
+
     String accessToken = Jwts.builder()
         .setSubject(authentication.getName())
         .claim(AUTHORITIES_KEY, authorities) // 정보 저장
@@ -83,22 +93,20 @@ public class TokenProvider implements InitializingBean {
     return accessToken;
   }
 
-  public String createAccessToken(String userPk, HashMap<String, Object> claim) {
-    return createToken(userPk, accessTokenTime, secret, claim);
+  public String createAccessToken(String userEmail, HashMap<String, Object> claim) {
+    return createToken(userEmail, accessTokenTime, secret, claim);
   }
 
-  private String createToken(String userPk, Long expiration, String secret, HashMap<String, Object> claim) {
+  private String createToken(String userEmail, Long expiration, String secret, HashMap<String, Object> userInfo) {
     Date now = new Date();
 
-    Claims claims = Jwts.claims().setSubject(userPk); // JWT payload 에 저장되는 정보단위
-    if (claim != null) {
-      claims.put("userInfo", claim);
+    Claims claims = Jwts.claims().setSubject(userEmail); // JWT payload 에 저장되는 정보단위
+    if (userInfo != null) {
+      claims.put("userInfo", userInfo);
     }
 
-
-
     return Jwts.builder()
-        .setSubject(userPk)
+        .setSubject(userEmail)
         .setHeaderParam("typ", "JWT")
         .setIssuedAt(now) // 토큰 발행 시간 정보
         .setExpiration(new Date(now.getTime() + expiration)) // set Expire Time
@@ -149,8 +157,12 @@ public class TokenProvider implements InitializingBean {
         .parseClaimsJws(token)
         .getBody();
 
+    Object info = new LinkedHashMap<>();
+    info = claims.get("userInfo");
+    LinkedHashMap<String, Object> ss = new LinkedHashMap<>();
+    ss = (LinkedHashMap<String, Object>) info;
     Collection<? extends GrantedAuthority> authorities =
-        Arrays.stream(claims.get(AUTHORITIES_KEY).toString().split(","))
+        Arrays.stream(ss.get("role").toString().split(","))
             .map(SimpleGrantedAuthority::new)
             .collect(Collectors.toList());
 
@@ -271,10 +283,10 @@ public class TokenProvider implements InitializingBean {
     Customer user = customerReader.findByCustomerEmail(customerEmail).orElseThrow(() -> new ApiException(ErrorCode.USER_NOT_FOUND));
 
     HashMap<String,Object> claim = new HashMap<String,Object>();
-    claim.put("seqNo", user.getCustomerId());
-    claim.put("adminId", user.getCustomerEmail());
-    claim.put("adminName", user.getCustomerName());
-    claim.put("phone", user.getCustomerPhone());
+    claim.put("userId", user.getCustomerId());
+    claim.put("userEmail", user.getCustomerEmail());
+    claim.put("userName", user.getCustomerName());
+    claim.put("userPhone", user.getCustomerPhone());
     claim.put("role", user.getAuthorities());
 
     String accessJws = createAccessToken(customerEmail,claim);
