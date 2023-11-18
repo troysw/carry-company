@@ -16,4 +16,8 @@ public class ReadProductFacade {
     public Page<ProductResponse.ProductCategoryResponse> readCategoryList(Pageable pageable) {
         return readProductService.readAllCategoryList(pageable);
     }
+
+    public Page<ProductResponse.ProductItemResponse> readItemList(Pageable pageable) {
+        return readProductService.readAllItemList(pageable);
+    }
 }

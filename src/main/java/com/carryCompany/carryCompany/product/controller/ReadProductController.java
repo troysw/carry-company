@@ -3,6 +3,7 @@ package com.carryCompany.carryCompany.product.controller;
 import com.carryCompany.carryCompany.common.response.CommonResponse;
 import com.carryCompany.carryCompany.product.application.service.dto.ProductResponse;
 import com.carryCompany.carryCompany.product.facade.ReadProductFacade;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,6 +23,14 @@ public class ReadProductController {
     @GetMapping("/category")
     public CommonResponse<Page<ProductResponse.ProductCategoryResponse>> readCategoryList(Pageable pageable) {
         var res = readProductFacade.readCategoryList(pageable);
+        return CommonResponse.success(res);
+    }
+
+
+    //제품 전체 조회
+    @GetMapping("/item")
+    public CommonResponse<Page<ProductResponse.ProductItemResponse>> readItemList(Pageable pageable) {
+        var res = readProductFacade.readItemList(pageable);
         return CommonResponse.success(res);
     }
 

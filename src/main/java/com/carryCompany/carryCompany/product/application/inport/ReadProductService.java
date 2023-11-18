@@ -6,4 +6,6 @@ import org.springframework.data.domain.Pageable;
 
 public interface ReadProductService {
     Page<ProductResponse.ProductCategoryResponse> readAllCategoryList(Pageable pageable);
+
+    Page<ProductResponse.ProductItemResponse> readAllItemList(Pageable pageable);
 }

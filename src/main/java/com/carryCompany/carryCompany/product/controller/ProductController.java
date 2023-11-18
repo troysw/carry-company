@@ -31,8 +31,22 @@ public class ProductController {
 
     @DeleteMapping("category/{productId}")
     @PreAuthorize("hasAnyRole('STAFF')")
-    public CommonResponse deleteCategory(@PathVariable("productId")Long id){
+    public CommonResponse deleteCategory(@PathVariable("productId") Long id) {
         productFacade.deleteCategory(id);
         return CommonResponse.success(null, "성공적으로 삭제 되었습니다.");
+    }
+
+    @PostMapping("item")
+    @PreAuthorize("hasAnyRole('STAFF')")
+    public CommonResponse createItem(@Valid @RequestBody ProductRequest.itemCreate request) {
+        productFacade.createItem(request);
+        return CommonResponse.success(null, "성공적으로 저장 되었습니다.");
+    }
+
+    @PatchMapping("item")
+    @PreAuthorize("hasAnyRole('STAFF')")
+    public CommonResponse updateItem(@Valid @RequestBody ProductRequest.itemUpdate request) {
+        productFacade.updateItem(request);
+        return CommonResponse.success(null, "성공적으로 저장 되었습니다.");
     }
 }

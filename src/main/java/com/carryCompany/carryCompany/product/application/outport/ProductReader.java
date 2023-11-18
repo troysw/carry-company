@@ -15,4 +15,7 @@ public interface ProductReader {
 
     List<ProductItem> readAllProductItemByProductId(Long id);
 
+    Page<ProductItem> readAllItemList(Pageable pageable);
+
+    ProductItem readItemById(Long itemId);
 }

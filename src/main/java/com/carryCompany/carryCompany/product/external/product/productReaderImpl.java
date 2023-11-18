@@ -1,5 +1,6 @@
 package com.carryCompany.carryCompany.product.external.product;
 
+import com.carryCompany.carryCompany.common.exception.product.ProductItemNotFoundException;
 import com.carryCompany.carryCompany.common.exception.product.ProductNotFoundException;
 import com.carryCompany.carryCompany.product.application.outport.ProductReader;
 import com.carryCompany.carryCompany.product.application.service.dto.ProductResponse;
@@ -42,6 +43,17 @@ public class productReaderImpl implements ProductReader {
     @Override
     public List<ProductItem> readAllProductItemByProductId(Long id) {
         return itemRepository.findAllByProduct_productId(id);
+    }
+
+    @Override
+    public Page<ProductItem> readAllItemList(Pageable pageable) {
+
+        return itemRepository.findAll(pageable);
+    }
+
+    @Override
+    public ProductItem readItemById(Long itemId) {
+        return itemRepository.findById(itemId).orElseThrow(ProductItemNotFoundException::new);
     }
 
 }

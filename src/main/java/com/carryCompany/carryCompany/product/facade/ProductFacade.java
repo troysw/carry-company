@@ -17,15 +17,23 @@ public class ProductFacade {
     private final Security security;
 
     public void createCategory(ProductRequest.categoryCreate request) {
-        productService.create(request);
+        productService.createCategory(request);
     }
 
     @Transactional
     public void updateCategory(ProductRequest.categoryUpdate request) {
-        productService.update(request);
+        productService.updateCategory(request);
     }
 
     public void deleteCategory(Long id) {
-        productService.delete(id);
+        productService.deleteCategory(id);
+    }
+
+    public void createItem(ProductRequest.itemCreate request) {
+        productService.createItem(request);
+    }
+
+    public void updateItem(ProductRequest.itemUpdate request) {
+        productService.updateItem(request);
     }
 }

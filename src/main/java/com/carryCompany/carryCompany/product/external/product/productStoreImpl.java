@@ -33,4 +33,9 @@ public class productStoreImpl implements ProductStore {
     public void deleteProduct(Product product) {
         productRepository.delete(product);
     }
+
+    @Override
+    public void saveItem(ProductItem item) {
+        itemRepository.save(item);
+    }
 }

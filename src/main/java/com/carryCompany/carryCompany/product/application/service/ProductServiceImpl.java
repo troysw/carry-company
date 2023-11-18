@@ -21,23 +21,38 @@ public class ProductServiceImpl implements ProductService {
     private final ProductStore productStore;
 
     @Override
-    public void create(ProductRequest.categoryCreate request) {
+    public void createCategory(ProductRequest.categoryCreate request) {
       Product product = Product.create(request);
       productStore.save(product);
     }
 
     @Override
-    public void update(ProductRequest.categoryUpdate request) {
+    public void updateCategory(ProductRequest.categoryUpdate request) {
         Product product = productReader.readCategoryById(request.getProductId());
         product.update(request);
     }
 
     @Override
-    public void delete(Long id) {
+    public void deleteCategory(Long id) {
         Product product = productReader.readCategoryById(id);
         List<ProductItem> productItemList = productReader.readAllProductItemByProductId(id);
         productStore.deleteAllProductItemList(productItemList);
         productStore.deleteProduct(product);
 
+    }
+
+    @Override
+    public void createItem(ProductRequest.itemCreate request) {
+        Product product = productReader.readCategoryById(request.getProductId());
+        ProductItem item = ProductItem.create(request, product);
+        productStore.saveItem(item);
+    }
+
+    @Override
+    @Transactional
+    public void updateItem(ProductRequest.itemUpdate request) {
+        Product product = productReader.readCategoryById(request.getProductId());
+        ProductItem item = productReader.readItemById(request.getItemId());
+        item.update(request, product);
     }
 }

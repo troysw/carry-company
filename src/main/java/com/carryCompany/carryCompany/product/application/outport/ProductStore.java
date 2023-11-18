@@ -11,4 +11,6 @@ public interface ProductStore {
     void deleteAllProductItemList(List<ProductItem> productItemList);
 
     void deleteProduct(Product product);
+
+    void saveItem(ProductItem item);
 }

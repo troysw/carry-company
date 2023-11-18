@@ -35,7 +35,7 @@ public class Vendor extends BaseEntity {
   @Size(max = 60)
   private String vendorTelNumber;
 
-  private String vendorState;
+  private String vendorAddress;
 
 
 }
