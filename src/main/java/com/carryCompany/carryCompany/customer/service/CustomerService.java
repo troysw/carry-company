@@ -10,7 +10,7 @@ import com.carryCompany.carryCompany.customer.controller.dto.CustomerResponse;
 import com.carryCompany.carryCompany.customer.domain.Customer;
 import com.carryCompany.carryCompany.customer.external.CustomerRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,9 +21,9 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class CustomerService {
 
+  private final BCryptPasswordEncoder passwordEncoder;
   private final CustomerRepository customerRepository;
   private final Security security;
-  private final PasswordEncoder passwordEncoder;
 
   @Transactional
   public CustomerResponse.JoinResponse signup(CustomerRequest.JoinRequest userDto) {

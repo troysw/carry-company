@@ -1,6 +1,7 @@
 package com.carryCompany.carryCompany.truck;
 
 import com.carryCompany.carryCompany.common.entity.BaseEntity;
+import com.carryCompany.carryCompany.truck.constant.TruckType;
 import com.carryCompany.carryCompany.truckDriver.TruckDriver;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -20,6 +21,8 @@ public class Truck extends BaseEntity {
   private String carNumber;
 
   private String truckMemo;
+
+  private TruckType truckType;
 
   @ManyToOne
   @JoinColumn(name = "truckDriver_id", foreignKey = @ForeignKey(name = "fk__truck__truckDriver"))
