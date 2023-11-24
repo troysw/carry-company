@@ -106,35 +106,38 @@ public class MainOrder {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "vendor_id", foreignKey = @ForeignKey(name = "fk__vendor__order__order"))
     private Vendor vendor;
+
     public static MainOrder create(MainOrderRequest.MainOrderCreateRequest req) {
         MainOrder res = new MainOrder();
-//
 //        res.setVendorName(req.getVendorName());
 //        res.setManager(req.getManager());
-//
 //        res.setOrderCode(req.getOrderCode());
-//
+//        res.setProductItemName(req.getProductItemName());
+//        res.setUnitName(req.getUnitName());
+//        res.setQuantity(req.getQuantity());
+//        res.setMarine(req.getMarine());
+//        res.setVessel(req.getVessel());
+//        res.setLocation(req.getLocation());
+//        res.setLandingDate(req.getLandingDate());
+//        res.setLandingTime(req.getLandingTime());
+//        res.setStartDate(req.getStartDate());
+//        res.setStartTime(req.getStartTime());
+//        res.setVendorOrderNumber(req.getVendorOrderNumber());
+//        res.setRemarks(req.getRemarks());
+//        res.setLoadingDate(req.getLoadingDate());
 //        res.setTruckBackNumber(req.getTruckBackNumber());
-//        res.setDriverName(req.getDriverName());
-//
-//        //기사 차 관련
-//        res.setTruckBackNumber(req.getTruckBackNumber());
-//        res.setDriverName(req.getDriverName());
-//
-//        //금액관련
 //        res.setCharge(req.getCharge());
 //        res.setConsolidationCharge(req.getConsolidationCharge());
-//
-//        res.setManager(req.getManager());
-//        res.setVessel(req.getVessel());
-//        res.setMarine(req.getMarine());
-//        res.setStartDate(req.getStartDate());
+//        res.setEndDate(req.getEndDate());
 //        res.setEntranceDate(req.getEntranceDate());
-//        res.setLandingDate(req.getLandingDate());
-//        res.setLoadingDate(req.getLoadingDate());
-//        res.setUnitName(UnitName.LITER);
-//        res.setRemarks(req.getRemarks());
-//        res.setVendorOrderNumber(req.getVendorOrderNumber());
+//        res.setHolidayCharge(req.getHolidayCharge());
+//        res.setMemo(req.getMemo());
+//        res.setSpecialMemo(req.getSpecialMemo());
+//        res.setTruckMemo(req.getTruckMemo());
+//        res.setTruckType(req.getTruckType());
+//        res.setWaitingCharge(req.getWaitingCharge());
+//        res.setDriverName(req.getDriverName());
+//        vendorId
         return res;
     }
 

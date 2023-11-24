@@ -2,6 +2,7 @@ package com.carryCompany.carryCompany.order.controller.dto;
 
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class MainOrderRequest {
@@ -16,7 +17,7 @@ public class MainOrderRequest {
         private String marine;
         private String vessel;
         private String location;
-        private String landingDate;
+        private LocalDate landingDate;
         private String landingTime;
         private String startDate;
         private String startTime;
