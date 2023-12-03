@@ -1,7 +1,7 @@
 package com.carryCompany.carryCompany.order.domain;
 
 import com.carryCompany.carryCompany.common.entity.BaseEntity;
-import com.carryCompany.carryCompany.truck.Truck;
+import com.carryCompany.carryCompany.truck.domain.Truck;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
