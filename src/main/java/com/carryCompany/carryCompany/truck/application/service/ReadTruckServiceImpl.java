@@ -20,4 +20,9 @@ public class ReadTruckServiceImpl implements ReadTruckService {
         List<Truck> truckList = truckReader.findAll();
         return truckList.stream().map(Truck::toResponse).toList();
     }
+
+    @Override
+    public Truck readTruckByBackNumber(String truckBackNumber) {
+        return truckReader.findByTruckBackNumber(truckBackNumber);
+    }
 }

@@ -1,4 +1,4 @@
-package com.carryCompany.carryCompany.vendor;
+package com.carryCompany.carryCompany.vendor.domain;
 
 import com.carryCompany.carryCompany.common.entity.BaseEntity;
 import jakarta.persistence.*;

@@ -1,9 +1,7 @@
-package com.carryCompany.carryCompany.vendor;
+package com.carryCompany.carryCompany.vendor.domain;
 
 import com.carryCompany.carryCompany.common.entity.BaseEntity;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;

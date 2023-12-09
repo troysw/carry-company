@@ -17,11 +17,18 @@ public class OrderTruck extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long orderTruckId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id", foreignKey = @ForeignKey(name = "fk__orderTruck__order"))
     private MainOrder mainOrder;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "truck_id", foreignKey = @ForeignKey(name = "fk__orderTruck__truck"))
     private Truck truck;
+
+    public static OrderTruck create(MainOrder order, Truck truck) {
+        OrderTruck res = new OrderTruck();
+        res.setTruck(truck);
+        res.setMainOrder(order);
+        return res;
+    }
 }

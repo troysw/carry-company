@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface TruckReader {
     List<Truck> findAll();
+
+    Truck findByTruckBackNumber(String truckBackNumber);
 }

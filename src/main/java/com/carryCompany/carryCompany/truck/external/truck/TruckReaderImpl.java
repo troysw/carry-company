@@ -1,5 +1,6 @@
 package com.carryCompany.carryCompany.truck.external.truck;
 
+import com.carryCompany.carryCompany.common.exception.truck.TruckNotFoundException;
 import com.carryCompany.carryCompany.truck.application.outport.TruckReader;
 import com.carryCompany.carryCompany.truck.domain.Truck;
 import com.carryCompany.carryCompany.truck.external.repository.TruckRepository;
@@ -20,5 +21,10 @@ public class TruckReaderImpl implements TruckReader {
     @Override
     public List<Truck> findAll() {
         return truckRepository.findAll();
+    }
+
+    @Override
+    public Truck findByTruckBackNumber(String truckBackNumber) {
+        return truckRepository.findByTruckBackNumber(truckBackNumber).orElseThrow(TruckNotFoundException::new);
     }
 }

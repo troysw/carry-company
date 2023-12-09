@@ -10,6 +10,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -20,7 +21,7 @@ public class orderController {
 
     @PostMapping("insert")
     @PreAuthorize("hasAnyRole('STAFF')")
-    public CommonResponse createMainOrder(@RequestBody List<MainOrderRequest.MainOrderCreateRequest> request) {
+    public CommonResponse createMainOrder(@RequestBody Map<String, List<MainOrderRequest.MainOrderCreateRequest>> request) {
         orderFacade.createMainOrder(request);
         return CommonResponse.success(null, "성공적으로 저장 되었습니다.");
     }
